@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
+</head>
+<body>
+    <button onclick="
+        game_play('Rock')
+        ">
+        Rock
+    </button>
+
+    <button onclick="
+        game_play('Paper')
+    ">
+        Paper
+    </button>
+
+    <button onclick="
+    game_play('Scissors')
+    ">
+        Scissors
+    </button>
+    <button onclick="
+        score = {
+            wins : 0,
+            losses : 0,
+            ties : 0,
+        }
+        localStorage.removeItem('score')
+        alert(`Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+    ">
+        Reset
+    </button>
+    <script>
+        let score = JSON.parse(localStorage.getItem('score'))
+        if (score === null){
+            score = {
+            wins : 0,
+            losses : 0,
+            ties : 0,
+        }
+        };
+        function game_play(user_move){
+            
+            function moves(){
+            const random = Math.random();
+            let com_move = '';
+            if(random >= 0 && random < 1/3){
+                com_move = 'Rock'
+            }
+            else if(random >= 1/3 && random < 2/3){
+                com_move = 'Paper'
+            }
+            else if(random >= 2/3 && random < 1){
+                com_move = 'Scissors'
+            }
+            return com_move;
+        };
+        com_move = moves();
+            if(com_move === user_move){
+                score.ties +=1
+                alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+            }
+            else{
+                if(com_move === 'Rock' && user_move === 'Scissors'){
+                    score.losses +=1
+                    alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                    Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+                }
+                if(com_move === 'Rock' && user_move === 'Paper'){
+                    score.wins +=1
+                    alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                    Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+                }
+                if(com_move === 'Paper' && user_move === 'Scissors'){
+                    score.wins +=1
+                    alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                    Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+                }
+                if(com_move === 'Paper' && user_move === 'Rock'){
+                    score.losses +=1
+                    alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                    Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+                }
+                if(com_move === 'Scissors' && user_move === 'Rock'){
+                    score.wins +=1
+                    alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                    Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+                }
+                if(com_move === 'Scissors' && user_move === 'Paper'){
+                    score.losses +=1
+                    alert(`you chose ${user_move} and the computer chose ${com_move}.\n
+                    Wins : ${score.wins} , losses : ${score.losses} , ties : ${score.ties}`)
+                }
+            }
+            localStorage.setItem('score', JSON.stringify(score));
+        };
+    </script>
+</body>
+</html>
